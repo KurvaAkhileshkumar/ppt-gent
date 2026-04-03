@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Box, Typography, TextField, Button, Stepper, Step,
-  StepLabel, Grid, MenuItem, FormControlLabel, Checkbox,
+  StepLabel, Grid, MenuItem, Checkbox,
   Card, CardContent, CircularProgress, Alert,
   Chip, IconButton, Tooltip, LinearProgress, Divider,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import EditIcon from "@mui/icons-material/Edit";
-import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -78,18 +76,6 @@ const PLAN_CAPTIONS = [
   "Brewing the perfect slide structure...",
 ];
 
-const GEN_CAPTIONS = [
-  "Writing slides in parallel — faster than a grad student on caffeine...",
-  "Making your next lecture significantly less boring...",
-  "Converting textbook chapters into actual slides...",
-  "Asking AI to not say 'as we can clearly see'...",
-  "Generating content your students will pretend to take notes on...",
-  "Adding technical accuracy. And removing em dashes...",
-  "Almost done — generating diagrams for the interesting slides...",
-  "Your slides are coming to life. One parallel thread at a time.",
-  "Slightly more useful than reading the textbook yourself...",
-  "Final polish — slides that actually fit on one screen...",
-];
 
 function CaptionCycler({ captions, interval = 3200 }) {
   const [idx, setIdx] = useState(0);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Box, Typography, TextField, Button, Stepper, Step, StepLabel,
   Grid, MenuItem, Card, CardContent, Checkbox, CircularProgress,
-  Alert, Chip, IconButton, Divider,
+  Alert, Chip, IconButton,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
