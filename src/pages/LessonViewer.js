@@ -412,7 +412,7 @@ function TitleSlide({ slide, p }) {
 
   return (
 
-    <Box sx={{ height: "100%", bgcolor: p.bg, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", p: "6% 8%", position: "relative" }}>
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", p: "6% 8%", position: "relative" }}>
 
       <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, bgcolor: p.accent }} />
 
@@ -438,7 +438,7 @@ function ObjectivesSlide({ slide, p }) {
 
   return (
 
-    <Box sx={{ height: "100%", bgcolor: p.bg, p: "4% 5%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", overflow: "visible", display: "flex", flexDirection: "column" }}>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: "3%", flexShrink: 0 }}>
 
@@ -448,7 +448,7 @@ function ObjectivesSlide({ slide, p }) {
 
       </Box>
 
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5%", flex: 1, overflow: "hidden" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5%", flex: 1, overflow: "visible" }}>
 
         {items.slice(0, 6).map((obj, i) => (
 
@@ -484,7 +484,7 @@ function QuizSlide({ slide, p }) {
 
   return (
 
-    <Box sx={{ height: "100%", bgcolor: p.bg, p: "4% 5%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", overflow: "visible", display: "flex", flexDirection: "column" }}>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: "2.5%", flexShrink: 0 }}>
 
@@ -500,7 +500,7 @@ function QuizSlide({ slide, p }) {
 
       </Box>
 
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5%", flex: 1, overflow: "hidden" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5%", flex: 1, overflow: "visible" }}>
 
         {opts.slice(0, 4).map((opt, i) => (
 
@@ -532,7 +532,7 @@ function QuizAnswerSlide({ slide, p }) {
 
   return (
 
-    <Box sx={{ height: "100%", bgcolor: p.bg, p: "4% 5%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", overflow: "visible", display: "flex", flexDirection: "column" }}>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: "3%", flexShrink: 0 }}>
 
@@ -580,7 +580,7 @@ function SummarySlide({ slide, p }) {
 
   return (
 
-    <Box sx={{ height: "100%", bgcolor: p.bg, p: "4% 5%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", overflow: "visible", display: "flex", flexDirection: "column" }}>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: "2%", flexShrink: 0 }}>
 
@@ -596,7 +596,7 @@ function SummarySlide({ slide, p }) {
 
       )}
 
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5%", flex: 1, overflow: "hidden" }}>
+      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5%", flex: 1, overflow: "visible" }}>
 
         {items.slice(0, 8).map((point, i) => (
 
@@ -624,11 +624,11 @@ function GenericSlide({ slide, p }) {
 
   const content = slide.content || [];
 
-  const contentBlocks = <Box sx={{ flex: 1, minWidth: 0, overflow: "hidden" }}>{content.map((b, i) => renderBlock(b, i, p))}</Box>;
+  const contentBlocks = <Box sx={{ flex: 1, minWidth: 0, overflow: "visible" }}>{content.map((b, i) => renderBlock(b, i, p))}</Box>;
 
   return (
 
-    <Box sx={{ height: "100%", bgcolor: p.bg, p: "4% 5%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", overflow: "visible", display: "flex", flexDirection: "column" }}>
 
       <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)", mb: "1.5%", flexShrink: 0 }}>{slide.title}</Typography>
 
@@ -636,7 +636,7 @@ function GenericSlide({ slide, p }) {
 
       {slide.image_b64 ? (
 
-        <Box sx={{ display: "flex", gap: "3%", flex: 1, overflow: "hidden", alignItems: "stretch" }}>
+        <Box sx={{ display: "flex", gap: "3%", flex: 1, overflow: "visible", alignItems: "stretch" }}>
 
           {contentBlocks}
 
@@ -656,7 +656,7 @@ function GenericSlide({ slide, p }) {
 
       ) : (
 
-        <Box sx={{ flex: 1, overflow: "hidden" }}>{contentBlocks}</Box>
+        <Box sx={{ flex: 1, overflow: "visible" }}>{contentBlocks}</Box>
 
       )}
 
@@ -1412,7 +1412,7 @@ export default function LessonViewer() {
 
             position: "relative", width: "100%", mx: "auto", maxWidth: 920,
 
-            aspectRatio: "16 / 9", borderRadius: 3, overflow: "hidden",
+            minHeight: 517, borderRadius: 3, overflow: "visible",
 
             boxShadow: "0 8px 32px rgba(0,0,0,0.14)",
 
