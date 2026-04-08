@@ -74,6 +74,12 @@ const SLIDE_TYPE_LABELS = {
 
   summary: "Summary", references: "References",
 
+  hook: "Hook", concept_card: "Concept", steps: "Steps",
+
+  myth_bust: "Myth Bust", analogy: "Analogy", big_stat: "Stat", comparison: "Compare",
+
+  true_false: "True/False",
+
 };
 
 
@@ -85,6 +91,12 @@ const SLIDE_TYPE_COLORS = {
   content: "#4361EE", quiz: "#D4891A", quiz_answer: "#2E7D32",
 
   summary: "#37474F", references: "#546E7A",
+
+  hook: "#E63946", concept_card: "#7B5EA7", steps: "#0077B6",
+
+  myth_bust: "#C1121F", analogy: "#2D6A4F", big_stat: "#E76F51", comparison: "#457B9D",
+
+  true_false: "#D4891A",
 
 };
 
@@ -668,6 +680,279 @@ function GenericSlide({ slide, p }) {
 
 
 
+function HookSlide({ slide, p }) {
+  const textBlock = slide.content?.find(b => b.type === "text");
+  const listBlock = slide.content?.find(b => b.type === "list");
+  const bridgeBlock = slide.content?.filter(b => b.type === "text")[1];
+  const items = listBlock ? (Array.isArray(listBlock.value) ? listBlock.value : String(listBlock.value).split("\n").filter(Boolean)) : [];
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, display: "flex", flexDirection: "column", overflow: "visible" }}>
+      <Box sx={{ height: 4, bgcolor: "#E63946", flexShrink: 0 }} />
+      <Box sx={{ flex: 1, display: "flex", flexDirection: slide.image_b64 ? "row" : "column", p: "4% 5%", gap: "3%" }}>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, mb: "3%", flexShrink: 0 }}>
+            <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#E63946" }} />
+            <Typography sx={{ color: "#E63946", fontWeight: 800, fontSize: "clamp(10px, 1.1vw, 12px)", textTransform: "uppercase", letterSpacing: 1.5 }}>Why This Matters</Typography>
+          </Box>
+          <Typography sx={{ color: p.title, fontWeight: 800, fontSize: "clamp(16px, 2.4vw, 28px)", lineHeight: 1.2, mb: "4%", flexShrink: 0 }}>{slide.title}</Typography>
+          {textBlock && <Typography sx={{ color: p.body, fontSize: "clamp(12px, 1.4vw, 15px)", lineHeight: 1.6, mb: "4%", opacity: 0.9, flexShrink: 0 }}>{textBlock.value}</Typography>}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "2%", flexShrink: 0 }}>
+            {items.map((item, i) => (
+              <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: "2%", p: "1.5% 2%", borderRadius: 2, bgcolor: `#E6394615`, border: `1px solid #E6394630` }}>
+                <Box sx={{ flexShrink: 0, bgcolor: "#E63946", color: "#fff", borderRadius: "50%", width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800, mt: "1px" }}>{i + 1}</Box>
+                <Typography sx={{ color: p.body, fontSize: "clamp(11px, 1.2vw, 13px)", lineHeight: 1.5 }}>{item}</Typography>
+              </Box>
+            ))}
+          </Box>
+          {bridgeBlock && <Typography sx={{ color: p.accent, fontStyle: "italic", fontSize: "clamp(10px, 1.1vw, 12px)", mt: "4%", opacity: 0.8, flexShrink: 0 }}>{bridgeBlock.value}</Typography>}
+        </Box>
+        {slide.image_b64 && (
+          <Box sx={{ flexShrink: 0, width: "38%", borderRadius: 2, overflow: "hidden", backgroundImage: `url(data:image/png;base64,${slide.image_b64})`, backgroundSize: "cover", backgroundPosition: "center", minHeight: 200 }} />
+        )}
+      </Box>
+    </Box>
+  );
+}
+
+function ConceptCardSlide({ slide, p }) {
+  const cardsBlock = slide.content?.find(b => b.type === "cards");
+  const textBlock = slide.content?.find(b => b.type === "text");
+  const cards = cardsBlock ? (Array.isArray(cardsBlock.value) ? cardsBlock.value : []) : [];
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", display: "flex", flexDirection: "column", overflow: "visible" }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: "2%", flexShrink: 0 }}>
+        <Box sx={{ width: 4, height: "2em", borderRadius: 4, bgcolor: p.accent }} />
+        <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)" }}>{slide.title}</Typography>
+      </Box>
+      {textBlock && <Typography sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "3%", flexShrink: 0 }}>{textBlock.value}</Typography>}
+      <Box sx={{ display: "flex", gap: "2.5%", flex: 1, alignItems: "stretch" }}>
+        {cards.map((card, i) => (
+          <Box key={i} sx={{ flex: 1, display: "flex", flexDirection: "column", borderRadius: 2, border: `1px solid ${p.border}`, overflow: "hidden", bgcolor: `${p.accent}08` }}>
+            <Box sx={{ height: 4, bgcolor: p.accent, opacity: 0.6 + i * 0.2 }} />
+            <Box sx={{ p: "6% 5%", display: "flex", flexDirection: "column", flex: 1 }}>
+              <Typography sx={{ fontSize: "clamp(22px, 2.8vw, 32px)", mb: "4%", lineHeight: 1 }}>{card.emoji || "💡"}</Typography>
+              <Box sx={{ bgcolor: p.accent, color: p.bg, borderRadius: 1, px: 1.25, py: 0.4, fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: 0.8, display: "inline-flex", mb: "3%", alignSelf: "flex-start" }}>{i + 1}</Box>
+              <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(12px, 1.5vw, 16px)", lineHeight: 1.3, mb: "3%", flexShrink: 0 }}>{card.heading}</Typography>
+              <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.1vw, 12.5px)", lineHeight: 1.6, opacity: 0.9 }}>{card.body}</Typography>
+            </Box>
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+function StepsSlide({ slide, p }) {
+  const stepsBlock = slide.content?.find(b => b.type === "steps");
+  const textBlock = slide.content?.find(b => b.type === "text");
+  const steps = stepsBlock ? (Array.isArray(stepsBlock.value) ? stepsBlock.value : []) : [];
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", display: "flex", flexDirection: "column", overflow: "visible" }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: "2%", flexShrink: 0 }}>
+        <Box sx={{ width: 4, height: "2em", borderRadius: 4, bgcolor: p.accent }} />
+        <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)" }}>{slide.title}</Typography>
+      </Box>
+      {textBlock && <Typography sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "4%", flexShrink: 0 }}>{textBlock.value}</Typography>}
+      <Box sx={{ display: "flex", alignItems: "stretch", flex: 1, gap: 0 }}>
+        {steps.map((s, i) => (
+          <React.Fragment key={i}>
+            <Box sx={{ flex: 1, display: "flex", flexDirection: "column", borderRadius: 2, border: `1px solid ${p.border}`, p: "3% 3%", bgcolor: `${p.accent}0A`, position: "relative" }}>
+              <Box sx={{ width: 28, height: 28, borderRadius: "50%", bgcolor: p.accent, color: p.bg, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, mb: "8%", flexShrink: 0 }}>{i + 1}</Box>
+              <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(11px, 1.4vw, 15px)", lineHeight: 1.3, mb: "4%", flexShrink: 0 }}>{s.step}</Typography>
+              <Typography sx={{ color: p.body, fontSize: "clamp(9px, 1.1vw, 12px)", lineHeight: 1.55, opacity: 0.85 }}>{s.description}</Typography>
+            </Box>
+            {i < steps.length - 1 && (
+              <Box sx={{ display: "flex", alignItems: "center", px: "0.5%", flexShrink: 0 }}>
+                <Typography sx={{ color: p.accent, fontSize: "clamp(14px, 2vw, 22px)", fontWeight: 700, opacity: 0.6 }}>→</Typography>
+              </Box>
+            )}
+          </React.Fragment>
+        ))}
+      </Box>
+    </Box>
+  );
+}
+
+function MythBustSlide({ slide, p }) {
+  const mythBlock = slide.content?.find(b => b.type === "myth");
+  const realityBlock = slide.content?.find(b => b.type === "reality");
+  const listBlock = slide.content?.find(b => b.type === "list");
+  const items = listBlock ? (Array.isArray(listBlock.value) ? listBlock.value : String(listBlock.value).split("\n").filter(Boolean)) : [];
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", display: "flex", flexDirection: "column", overflow: "visible" }}>
+      <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)", mb: "3%", flexShrink: 0 }}>{slide.title}</Typography>
+      {mythBlock && (
+        <Box sx={{ borderRadius: 2, border: "1px solid #C1121F50", bgcolor: "#C1121F12", p: "2.5% 3%", mb: "2%", display: "flex", alignItems: "flex-start", gap: 1.5, flexShrink: 0 }}>
+          <Typography sx={{ fontSize: "clamp(16px, 2vw, 22px)", flexShrink: 0, lineHeight: 1 }}>❌</Typography>
+          <Box>
+            <Typography sx={{ color: "#C1121F", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: 1, mb: 0.5 }}>Common Misconception</Typography>
+            <Typography sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.5, fontStyle: "italic" }}>{mythBlock.value}</Typography>
+          </Box>
+        </Box>
+      )}
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", my: "1%", flexShrink: 0 }}>
+        <Typography sx={{ color: p.body, opacity: 0.3, fontSize: 18 }}>↓</Typography>
+      </Box>
+      {realityBlock && (
+        <Box sx={{ borderRadius: 2, border: "1px solid #2D6A4F50", bgcolor: "#2D6A4F12", p: "2.5% 3%", mb: "3%", display: "flex", alignItems: "flex-start", gap: 1.5, flexShrink: 0 }}>
+          <Typography sx={{ fontSize: "clamp(16px, 2vw, 22px)", flexShrink: 0, lineHeight: 1 }}>✅</Typography>
+          <Box>
+            <Typography sx={{ color: "#2D6A4F", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: 1, mb: 0.5 }}>The Reality</Typography>
+            <Typography sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.5, fontWeight: 500 }}>{realityBlock.value}</Typography>
+          </Box>
+        </Box>
+      )}
+      {items.length > 0 && (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1.5%" }}>
+          {items.map((item, i) => (
+            <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
+              <Box sx={{ flexShrink: 0, mt: "5px", width: 6, height: 6, borderRadius: "50%", bgcolor: p.accent }} />
+              <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.5 }}>{item}</Typography>
+            </Box>
+          ))}
+        </Box>
+      )}
+    </Box>
+  );
+}
+
+function BigStatSlide({ slide, p }) {
+  const statBlock = slide.content?.find(b => b.type === "stat");
+  const textBlocks = slide.content?.filter(b => b.type === "text") || [];
+  const listBlock = slide.content?.find(b => b.type === "list");
+  const items = listBlock ? (Array.isArray(listBlock.value) ? listBlock.value : String(listBlock.value).split("\n").filter(Boolean)) : [];
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, display: "flex", flexDirection: slide.image_b64 ? "row" : "column", overflow: "visible" }}>
+      <Box sx={{ flex: 1, p: "4% 5%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(13px, 1.6vw, 18px)", mb: "4%", flexShrink: 0 }}>{slide.title}</Typography>
+        {statBlock && (
+          <Box sx={{ mb: "4%", flexShrink: 0 }}>
+            <Typography sx={{ color: p.accent, fontWeight: 900, fontSize: "clamp(48px, 9vw, 96px)", lineHeight: 0.9, letterSpacing: -2 }}>{statBlock.value}</Typography>
+            {statBlock.unit && <Typography sx={{ color: p.accent, fontWeight: 700, fontSize: "clamp(14px, 1.8vw, 20px)", opacity: 0.8, mt: 1 }}>{statBlock.unit}</Typography>}
+            {statBlock.context && <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", opacity: 0.7, mt: 1, lineHeight: 1.4 }}>{statBlock.context}</Typography>}
+          </Box>
+        )}
+        {textBlocks.map((b, i) => <Typography key={i} sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.6, mb: "2%", flexShrink: 0 }}>{b.value}</Typography>)}
+        {items.map((item, i) => (
+          <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: 1.5, mb: "1.5%" }}>
+            <Box sx={{ flexShrink: 0, mt: "5px", width: 6, height: 6, borderRadius: "50%", bgcolor: p.accent }} />
+            <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.1vw, 12.5px)", lineHeight: 1.5 }}>{item}</Typography>
+          </Box>
+        ))}
+      </Box>
+      {slide.image_b64 && (
+        <Box sx={{ flexShrink: 0, width: "36%", backgroundImage: `url(data:image/png;base64,${slide.image_b64})`, backgroundSize: "cover", backgroundPosition: "center" }} />
+      )}
+    </Box>
+  );
+}
+
+function AnalogySlide({ slide, p }) {
+  const textBlocks = slide.content?.filter(b => b.type === "text") || [];
+  const listBlock = slide.content?.find(b => b.type === "list");
+  const items = listBlock ? (Array.isArray(listBlock.value) ? listBlock.value : String(listBlock.value).split("\n").filter(Boolean)) : [];
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, display: "flex", flexDirection: slide.image_b64 ? "row" : "column", overflow: "visible" }}>
+      {slide.image_b64 && (
+        <Box sx={{ flexShrink: 0, width: "38%", backgroundImage: `url(data:image/png;base64,${slide.image_b64})`, backgroundSize: "cover", backgroundPosition: "center", borderRadius: "0 0 0 0" }} />
+      )}
+      <Box sx={{ flex: 1, p: "4% 5%", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, mb: "2%", flexShrink: 0 }}>
+          <Box sx={{ bgcolor: "#2D6A4F", color: "#fff", px: 1.25, py: 0.3, borderRadius: 1, fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1 }}>Analogy</Box>
+        </Box>
+        <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)", mb: "3%", flexShrink: 0 }}>{slide.title}</Typography>
+        {textBlocks.slice(0, 1).map((b, i) => (
+          <Typography key={i} sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.6, mb: "3%", fontStyle: "italic", opacity: 0.9, flexShrink: 0 }}>{b.value}</Typography>
+        ))}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "2%", flex: 1 }}>
+          {items.map((item, i) => (
+            <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: "2%", p: "1.5% 2%", borderRadius: 2, bgcolor: `#2D6A4F10`, border: `1px solid #2D6A4F30` }}>
+              <Typography sx={{ color: "#2D6A4F", fontWeight: 800, fontSize: "clamp(14px, 1.6vw, 18px)", flexShrink: 0, lineHeight: 1 }}>↔</Typography>
+              <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.5 }}>{item}</Typography>
+            </Box>
+          ))}
+        </Box>
+        {textBlocks[1] && (
+          <Typography sx={{ color: p.body, opacity: 0.5, fontSize: "clamp(9px, 1vw, 11px)", mt: "3%", fontStyle: "italic", flexShrink: 0 }}>⚠ {textBlocks[1].value}</Typography>
+        )}
+      </Box>
+    </Box>
+  );
+}
+
+function TrueFalseSlide({ slide, p }) {
+  const statementBlock = slide.content?.find(b => b.type === "text");
+  const answerBlock = slide.content?.find(b => b.type === "tf_answer");
+  const isTrue = answerBlock?.value === "true";
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", display: "flex", flexDirection: "column", overflow: "visible" }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: "3%", flexShrink: 0 }}>
+        <Box sx={{ bgcolor: "#D4891A", color: "#fff", px: 1.25, py: 0.3, borderRadius: 1, fontSize: 10, fontWeight: 700 }}>True / False</Box>
+        <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(12px, 1.8vw, 18px)" }}>{slide.title}</Typography>
+      </Box>
+      {statementBlock && (
+        <Box sx={{ borderRadius: 2, border: `2px solid ${p.border}`, p: "3% 4%", mb: "4%", flexShrink: 0 }}>
+          <Typography sx={{ color: p.body, fontSize: "clamp(12px, 1.5vw, 16px)", lineHeight: 1.6, textAlign: "center", fontWeight: 500 }}>{statementBlock.value}</Typography>
+        </Box>
+      )}
+      <Box sx={{ display: "flex", gap: "3%", mb: "4%", flexShrink: 0 }}>
+        <Box sx={{ flex: 1, borderRadius: 2, p: "2.5% 3%", display: "flex", alignItems: "center", justifyContent: "center", gap: 1, border: `2px solid ${isTrue ? "#2D6A4F" : p.border}`, bgcolor: isTrue ? "#2D6A4F15" : "transparent" }}>
+          <Typography sx={{ fontSize: "clamp(16px, 2vw, 22px)" }}>✅</Typography>
+          <Typography sx={{ fontWeight: 800, fontSize: "clamp(13px, 1.6vw, 17px)", color: isTrue ? "#2D6A4F" : p.body, opacity: isTrue ? 1 : 0.4 }}>TRUE</Typography>
+          {isTrue && <Box sx={{ bgcolor: "#2D6A4F", color: "#fff", borderRadius: "50%", width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800 }}>✓</Box>}
+        </Box>
+        <Box sx={{ flex: 1, borderRadius: 2, p: "2.5% 3%", display: "flex", alignItems: "center", justifyContent: "center", gap: 1, border: `2px solid ${!isTrue ? "#C1121F" : p.border}`, bgcolor: !isTrue ? "#C1121F15" : "transparent" }}>
+          <Typography sx={{ fontSize: "clamp(16px, 2vw, 22px)" }}>❌</Typography>
+          <Typography sx={{ fontWeight: 800, fontSize: "clamp(13px, 1.6vw, 17px)", color: !isTrue ? "#C1121F" : p.body, opacity: !isTrue ? 1 : 0.4 }}>FALSE</Typography>
+          {!isTrue && <Box sx={{ bgcolor: "#C1121F", color: "#fff", borderRadius: "50%", width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800 }}>✓</Box>}
+        </Box>
+      </Box>
+      {answerBlock?.explanation && (
+        <Box sx={{ borderRadius: 2, bgcolor: `${p.accent}10`, border: `1px solid ${p.accent}30`, p: "2.5% 3%", flexShrink: 0 }}>
+          <Typography sx={{ color: p.accent, fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: 1, mb: 0.5 }}>Why?</Typography>
+          <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.6 }}>{answerBlock.explanation}</Typography>
+        </Box>
+      )}
+    </Box>
+  );
+}
+
+function ComparisonSlide({ slide, p }) {
+  const tableBlock = slide.content?.find(b => b.type === "table");
+  const textBlock = slide.content?.find(b => b.type === "text");
+  return (
+    <Box sx={{ minHeight: 517, bgcolor: p.bg, p: "4% 5%", display: "flex", flexDirection: "column", overflow: "visible" }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: "2%", flexShrink: 0 }}>
+        <Box sx={{ bgcolor: "#457B9D", color: "#fff", px: 1.25, py: 0.3, borderRadius: 1, fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: 0.8 }}>vs</Box>
+        <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)" }}>{slide.title}</Typography>
+      </Box>
+      {textBlock && <Typography sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "2.5%", flexShrink: 0 }}>{textBlock.value}</Typography>}
+      {tableBlock && (
+        <Box sx={{ flex: 1, borderRadius: 2, border: `1px solid ${p.border}`, overflow: "hidden" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr>
+                {tableBlock.headers?.map((h, j) => (
+                  <th key={j} style={{ padding: "8px 14px", background: j === 0 ? p.border : "#457B9D", color: j === 0 ? p.body : "#fff", textAlign: j === 0 ? "left" : "center", fontSize: 12, fontWeight: 700, borderRight: `1px solid ${p.border}` }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tableBlock.rows?.map((row, ri) => (
+                <tr key={ri} style={{ background: ri % 2 === 0 ? "transparent" : `${p.border}40` }}>
+                  {row.map((cell, ci) => (
+                    <td key={ci} style={{ padding: "7px 14px", color: ci === 0 ? p.title : p.body, fontSize: ci === 0 ? 13 : 12.5, fontWeight: ci === 0 ? 600 : 400, textAlign: ci === 0 ? "left" : "center", borderBottom: `1px solid ${p.border}`, borderRight: `1px solid ${p.border}40` }}>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Box>
+      )}
+    </Box>
+  );
+}
+
 function SlideView({ slide, theme }) {
 
   const p = THEME_PALETTE[theme] || THEME_PALETTE.dark;
@@ -685,6 +970,22 @@ function SlideView({ slide, theme }) {
     case "quiz_answer":         return <QuizAnswerSlide slide={slide} p={p} />;
 
     case "summary":             return <SummarySlide slide={slide} p={p} />;
+
+    case "hook":                return <HookSlide slide={slide} p={p} />;
+
+    case "concept_card":        return <ConceptCardSlide slide={slide} p={p} />;
+
+    case "steps":               return <StepsSlide slide={slide} p={p} />;
+
+    case "myth_bust":           return <MythBustSlide slide={slide} p={p} />;
+
+    case "big_stat":            return <BigStatSlide slide={slide} p={p} />;
+
+    case "analogy":             return <AnalogySlide slide={slide} p={p} />;
+
+    case "true_false":          return <TrueFalseSlide slide={slide} p={p} />;
+
+    case "comparison":          return <ComparisonSlide slide={slide} p={p} />;
 
     default:                   return <GenericSlide slide={slide} p={p} />;
 
