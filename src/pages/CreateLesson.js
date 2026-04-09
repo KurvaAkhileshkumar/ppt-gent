@@ -41,6 +41,14 @@ const CONTENT_LEVELS = [
   { value: "advanced",     label: "Advanced",      desc: "Edge cases, nuances, research depth" },
 ];
 
+const CONTENT_TONALITIES = [
+  { value: "eli5",       label: "ELI5",       desc: "Zero jargon — analogies for everything, beginner-proof" },
+  { value: "simplified", label: "Simplified", desc: "Accessible language, all terms defined, relatable examples" },
+  { value: "standard",   label: "Standard",   desc: "Balanced academic tone — clear but not dumbed down" },
+  { value: "technical",  label: "Technical",  desc: "Precise vocabulary, no hand-holding, domain-accurate" },
+  { value: "expert",     label: "Expert",     desc: "Peer-level density — graduate or practitioner audience" },
+];
+
 const THEMES = [
   { value: "dark",     label: "Dark",     description: "Navy & gold — professional", bg: "#1E2847", tc: "#F5C518" },
   { value: "light",    label: "Light",    description: "Clean white — minimal",      bg: "#ffffff", tc: "#1E2847" },
@@ -106,6 +114,7 @@ export default function CreateLesson() {
     duration_minutes: 45,
     presentation_style: "standard",
     content_level: "intermediate",
+    content_tonality: "standard",
     additional_instructions: "",
     include_learning_goals: true,
     include_key_vocabulary: false,
@@ -328,6 +337,28 @@ export default function CreateLesson() {
             ))}
           </Box>
 
+          {/* Tonality */}
+          <Typography variant="subtitle2" fontWeight={700} mb={0.75} sx={{ letterSpacing: 0.3 }}>
+            Language complexity
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 1.5 }}>
+            Controls how the content is written — independent of depth.
+          </Typography>
+          <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
+            {CONTENT_TONALITIES.map((t) => (
+              <Box key={t.value} onClick={() => setForm({ ...form, content_tonality: t.value })} sx={{
+                flex: "1 1 120px", borderRadius: 2, border: "1px solid",
+                borderColor: form.content_tonality === t.value ? "primary.main" : "divider",
+                borderWidth: form.content_tonality === t.value ? 2 : 1,
+                bgcolor: form.content_tonality === t.value ? "rgba(43,59,171,0.04)" : "transparent",
+                px: 1.5, py: 1.25, cursor: "pointer", transition: "all 0.15s",
+              }}>
+                <Typography variant="subtitle2" fontWeight={700} sx={{ fontSize: 13 }}>{t.label}</Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ fontSize: 11 }}>{t.desc}</Typography>
+              </Box>
+            ))}
+          </Box>
+
           <Divider sx={{ mb: 2.5 }} />
 
           {/* Extra toggles */}
@@ -404,6 +435,7 @@ export default function CreateLesson() {
             <Box display="flex" gap={1} flexWrap="wrap">
               <Chip label={form.presentation_style} size="small" />
               <Chip label={form.content_level} size="small" />
+              <Chip label={form.content_tonality} size="small" />
               {form.include_learning_goals && <Chip label="Learning objectives" size="small" />}
               {form.include_key_vocabulary && <Chip label="Key vocabulary" size="small" />}
               {form.include_co_mapping && <Chip label="CO mapping" size="small" />}
