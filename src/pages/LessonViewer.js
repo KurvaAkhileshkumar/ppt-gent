@@ -695,16 +695,16 @@ function HookSlide({ slide, p }) {
             <Typography sx={{ color: "#E63946", fontWeight: 800, fontSize: "clamp(10px, 1.1vw, 12px)", textTransform: "uppercase", letterSpacing: 1.5 }}>Why This Matters</Typography>
           </Box>
           <Typography sx={{ color: p.title, fontWeight: 800, fontSize: "clamp(16px, 2.4vw, 28px)", lineHeight: 1.2, mb: "4%", flexShrink: 0 }}>{slide.title}</Typography>
-          {textBlock && <Typography sx={{ color: p.body, fontSize: "clamp(12px, 1.4vw, 15px)", lineHeight: 1.6, mb: "4%", opacity: 0.9, flexShrink: 0 }}>{textBlock.value}</Typography>}
+          {textBlock && <Typography component="div" sx={{ color: p.body, fontSize: "clamp(12px, 1.4vw, 15px)", lineHeight: 1.6, mb: "4%", opacity: 0.9, flexShrink: 0 }}><InlineLatexText text={String(textBlock.value)} /></Typography>}
           <Box sx={{ display: "flex", flexDirection: "column", gap: "2%", flexShrink: 0 }}>
             {items.map((item, i) => (
               <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: "2%", p: "1.5% 2%", borderRadius: 2, bgcolor: `#E6394615`, border: `1px solid #E6394630` }}>
                 <Box sx={{ flexShrink: 0, bgcolor: "#E63946", color: "#fff", borderRadius: "50%", width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800, mt: "1px" }}>{i + 1}</Box>
-                <Typography sx={{ color: p.body, fontSize: "clamp(11px, 1.2vw, 13px)", lineHeight: 1.5 }}>{item}</Typography>
+                <Typography component="div" sx={{ color: p.body, fontSize: "clamp(11px, 1.2vw, 13px)", lineHeight: 1.5 }}><InlineLatexText text={String(item)} /></Typography>
               </Box>
             ))}
           </Box>
-          {bridgeBlock && <Typography sx={{ color: p.accent, fontStyle: "italic", fontSize: "clamp(10px, 1.1vw, 12px)", mt: "4%", opacity: 0.8, flexShrink: 0 }}>{bridgeBlock.value}</Typography>}
+          {bridgeBlock && <Typography component="div" sx={{ color: p.accent, fontStyle: "italic", fontSize: "clamp(10px, 1.1vw, 12px)", mt: "4%", opacity: 0.8, flexShrink: 0 }}><InlineLatexText text={String(bridgeBlock.value)} /></Typography>}
         </Box>
         {slide.image_b64 && (
           <Box sx={{ flexShrink: 0, width: "38%", borderRadius: 2, overflow: "hidden", backgroundImage: `url(data:image/png;base64,${slide.image_b64})`, backgroundSize: "cover", backgroundPosition: "center", minHeight: 200 }} />
@@ -724,7 +724,7 @@ function ConceptCardSlide({ slide, p }) {
         <Box sx={{ width: 4, height: "2em", borderRadius: 4, bgcolor: p.accent }} />
         <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)" }}>{slide.title}</Typography>
       </Box>
-      {textBlock && <Typography sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "3%", flexShrink: 0 }}>{textBlock.value}</Typography>}
+      {textBlock && <Typography component="div" sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "3%", flexShrink: 0 }}><InlineLatexText text={String(textBlock.value)} /></Typography>}
       <Box sx={{ display: "flex", gap: "2.5%", flex: 1, alignItems: "stretch" }}>
         {cards.map((card, i) => (
           <Box key={i} sx={{ flex: 1, display: "flex", flexDirection: "column", borderRadius: 2, border: `1px solid ${p.border}`, overflow: "hidden", bgcolor: `${p.accent}08` }}>
@@ -732,8 +732,8 @@ function ConceptCardSlide({ slide, p }) {
             <Box sx={{ p: "6% 5%", display: "flex", flexDirection: "column", flex: 1 }}>
               <Typography sx={{ fontSize: "clamp(22px, 2.8vw, 32px)", mb: "4%", lineHeight: 1 }}>{card.emoji || "💡"}</Typography>
               <Box sx={{ bgcolor: p.accent, color: p.bg, borderRadius: 1, px: 1.25, py: 0.4, fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: 0.8, display: "inline-flex", mb: "3%", alignSelf: "flex-start" }}>{i + 1}</Box>
-              <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(12px, 1.5vw, 16px)", lineHeight: 1.3, mb: "3%", flexShrink: 0 }}>{card.heading}</Typography>
-              <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.1vw, 12.5px)", lineHeight: 1.6, opacity: 0.9 }}>{card.body}</Typography>
+              <Typography component="div" sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(12px, 1.5vw, 16px)", lineHeight: 1.3, mb: "3%", flexShrink: 0 }}><InlineLatexText text={String(card.heading || "")} /></Typography>
+              <Typography component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.1vw, 12.5px)", lineHeight: 1.6, opacity: 0.9 }}><InlineLatexText text={String(card.body || "")} /></Typography>
             </Box>
           </Box>
         ))}
@@ -752,14 +752,14 @@ function StepsSlide({ slide, p }) {
         <Box sx={{ width: 4, height: "2em", borderRadius: 4, bgcolor: p.accent }} />
         <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)" }}>{slide.title}</Typography>
       </Box>
-      {textBlock && <Typography sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "4%", flexShrink: 0 }}>{textBlock.value}</Typography>}
+      {textBlock && <Typography component="div" sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "4%", flexShrink: 0 }}><InlineLatexText text={String(textBlock.value)} /></Typography>}
       <Box sx={{ display: "flex", alignItems: "stretch", flex: 1, gap: 0 }}>
         {steps.map((s, i) => (
           <React.Fragment key={i}>
             <Box sx={{ flex: 1, display: "flex", flexDirection: "column", borderRadius: 2, border: `1px solid ${p.border}`, p: "3% 3%", bgcolor: `${p.accent}0A`, position: "relative" }}>
               <Box sx={{ width: 28, height: 28, borderRadius: "50%", bgcolor: p.accent, color: p.bg, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, mb: "8%", flexShrink: 0 }}>{i + 1}</Box>
-              <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(11px, 1.4vw, 15px)", lineHeight: 1.3, mb: "4%", flexShrink: 0 }}>{s.step}</Typography>
-              <Typography sx={{ color: p.body, fontSize: "clamp(9px, 1.1vw, 12px)", lineHeight: 1.55, opacity: 0.85 }}>{s.description}</Typography>
+              <Typography component="div" sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(11px, 1.4vw, 15px)", lineHeight: 1.3, mb: "4%", flexShrink: 0 }}><InlineLatexText text={String(s.step || "")} /></Typography>
+              <Typography component="div" sx={{ color: p.body, fontSize: "clamp(9px, 1.1vw, 12px)", lineHeight: 1.55, opacity: 0.85 }}><InlineLatexText text={String(s.description || "")} /></Typography>
             </Box>
             {i < steps.length - 1 && (
               <Box sx={{ display: "flex", alignItems: "center", px: "0.5%", flexShrink: 0 }}>
@@ -786,7 +786,7 @@ function MythBustSlide({ slide, p }) {
           <Typography sx={{ fontSize: "clamp(16px, 2vw, 22px)", flexShrink: 0, lineHeight: 1 }}>❌</Typography>
           <Box>
             <Typography sx={{ color: "#C1121F", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: 1, mb: 0.5 }}>Common Misconception</Typography>
-            <Typography sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.5, fontStyle: "italic" }}>{mythBlock.value}</Typography>
+            <Typography component="div" sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.5, fontStyle: "italic" }}><InlineLatexText text={String(mythBlock.value)} /></Typography>
           </Box>
         </Box>
       )}
@@ -798,7 +798,7 @@ function MythBustSlide({ slide, p }) {
           <Typography sx={{ fontSize: "clamp(16px, 2vw, 22px)", flexShrink: 0, lineHeight: 1 }}>✅</Typography>
           <Box>
             <Typography sx={{ color: "#2D6A4F", fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: 1, mb: 0.5 }}>The Reality</Typography>
-            <Typography sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.5, fontWeight: 500 }}>{realityBlock.value}</Typography>
+            <Typography component="div" sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.5, fontWeight: 500 }}><InlineLatexText text={String(realityBlock.value)} /></Typography>
           </Box>
         </Box>
       )}
@@ -807,7 +807,7 @@ function MythBustSlide({ slide, p }) {
           {items.map((item, i) => (
             <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
               <Box sx={{ flexShrink: 0, mt: "5px", width: 6, height: 6, borderRadius: "50%", bgcolor: p.accent }} />
-              <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.5 }}>{item}</Typography>
+              <Typography component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.5 }}><InlineLatexText text={String(item)} /></Typography>
             </Box>
           ))}
         </Box>
@@ -828,15 +828,15 @@ function BigStatSlide({ slide, p }) {
         {statBlock && (
           <Box sx={{ mb: "4%", flexShrink: 0 }}>
             <Typography sx={{ color: p.accent, fontWeight: 900, fontSize: "clamp(48px, 9vw, 96px)", lineHeight: 0.9, letterSpacing: -2 }}>{statBlock.value}</Typography>
-            {statBlock.unit && <Typography sx={{ color: p.accent, fontWeight: 700, fontSize: "clamp(14px, 1.8vw, 20px)", opacity: 0.8, mt: 1 }}>{statBlock.unit}</Typography>}
-            {statBlock.context && <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", opacity: 0.7, mt: 1, lineHeight: 1.4 }}>{statBlock.context}</Typography>}
+            {statBlock.unit && <Typography component="div" sx={{ color: p.accent, fontWeight: 700, fontSize: "clamp(14px, 1.8vw, 20px)", opacity: 0.8, mt: 1 }}><InlineLatexText text={String(statBlock.unit)} /></Typography>}
+            {statBlock.context && <Typography component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", opacity: 0.7, mt: 1, lineHeight: 1.4 }}><InlineLatexText text={String(statBlock.context)} /></Typography>}
           </Box>
         )}
-        {textBlocks.map((b, i) => <Typography key={i} sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.6, mb: "2%", flexShrink: 0 }}>{b.value}</Typography>)}
+        {textBlocks.map((b, i) => <Typography key={i} component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.6, mb: "2%", flexShrink: 0 }}><InlineLatexText text={String(b.value)} /></Typography>)}
         {items.map((item, i) => (
           <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: 1.5, mb: "1.5%" }}>
             <Box sx={{ flexShrink: 0, mt: "5px", width: 6, height: 6, borderRadius: "50%", bgcolor: p.accent }} />
-            <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.1vw, 12.5px)", lineHeight: 1.5 }}>{item}</Typography>
+            <Typography component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.1vw, 12.5px)", lineHeight: 1.5 }}><InlineLatexText text={String(item)} /></Typography>
           </Box>
         ))}
       </Box>
@@ -862,18 +862,18 @@ function AnalogySlide({ slide, p }) {
         </Box>
         <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)", mb: "3%", flexShrink: 0 }}>{slide.title}</Typography>
         {textBlocks.slice(0, 1).map((b, i) => (
-          <Typography key={i} sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.6, mb: "3%", fontStyle: "italic", opacity: 0.9, flexShrink: 0 }}>{b.value}</Typography>
+          <Typography key={i} component="div" sx={{ color: p.body, fontSize: "clamp(11px, 1.3vw, 14px)", lineHeight: 1.6, mb: "3%", fontStyle: "italic", opacity: 0.9, flexShrink: 0 }}><InlineLatexText text={String(b.value)} /></Typography>
         ))}
         <Box sx={{ display: "flex", flexDirection: "column", gap: "2%", flex: 1 }}>
           {items.map((item, i) => (
             <Box key={i} sx={{ display: "flex", alignItems: "flex-start", gap: "2%", p: "1.5% 2%", borderRadius: 2, bgcolor: `#2D6A4F10`, border: `1px solid #2D6A4F30` }}>
               <Typography sx={{ color: "#2D6A4F", fontWeight: 800, fontSize: "clamp(14px, 1.6vw, 18px)", flexShrink: 0, lineHeight: 1 }}>↔</Typography>
-              <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.5 }}>{item}</Typography>
+              <Typography component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.5 }}><InlineLatexText text={String(item)} /></Typography>
             </Box>
           ))}
         </Box>
         {textBlocks[1] && (
-          <Typography sx={{ color: p.body, opacity: 0.5, fontSize: "clamp(9px, 1vw, 11px)", mt: "3%", fontStyle: "italic", flexShrink: 0 }}>⚠ {textBlocks[1].value}</Typography>
+          <Typography component="div" sx={{ color: p.body, opacity: 0.5, fontSize: "clamp(9px, 1vw, 11px)", mt: "3%", fontStyle: "italic", flexShrink: 0 }}>⚠ <InlineLatexText text={String(textBlocks[1].value)} /></Typography>
         )}
       </Box>
     </Box>
@@ -892,7 +892,7 @@ function TrueFalseSlide({ slide, p }) {
       </Box>
       {statementBlock && (
         <Box sx={{ borderRadius: 2, border: `2px solid ${p.border}`, p: "3% 4%", mb: "4%", flexShrink: 0 }}>
-          <Typography sx={{ color: p.body, fontSize: "clamp(12px, 1.5vw, 16px)", lineHeight: 1.6, textAlign: "center", fontWeight: 500 }}>{statementBlock.value}</Typography>
+          <Typography component="div" sx={{ color: p.body, fontSize: "clamp(12px, 1.5vw, 16px)", lineHeight: 1.6, textAlign: "center", fontWeight: 500 }}><InlineLatexText text={String(statementBlock.value)} /></Typography>
         </Box>
       )}
       <Box sx={{ display: "flex", gap: "3%", mb: "4%", flexShrink: 0 }}>
@@ -910,7 +910,7 @@ function TrueFalseSlide({ slide, p }) {
       {answerBlock?.explanation && (
         <Box sx={{ borderRadius: 2, bgcolor: `${p.accent}10`, border: `1px solid ${p.accent}30`, p: "2.5% 3%", flexShrink: 0 }}>
           <Typography sx={{ color: p.accent, fontWeight: 700, fontSize: 9, textTransform: "uppercase", letterSpacing: 1, mb: 0.5 }}>Why?</Typography>
-          <Typography sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.6 }}>{answerBlock.explanation}</Typography>
+          <Typography component="div" sx={{ color: p.body, fontSize: "clamp(10px, 1.2vw, 13px)", lineHeight: 1.6 }}><InlineLatexText text={String(answerBlock.explanation)} /></Typography>
         </Box>
       )}
     </Box>
@@ -926,14 +926,14 @@ function ComparisonSlide({ slide, p }) {
         <Box sx={{ bgcolor: "#457B9D", color: "#fff", px: 1.25, py: 0.3, borderRadius: 1, fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: 0.8 }}>vs</Box>
         <Typography sx={{ color: p.title, fontWeight: 700, fontSize: "clamp(14px, 2vw, 22px)" }}>{slide.title}</Typography>
       </Box>
-      {textBlock && <Typography sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "2.5%", flexShrink: 0 }}>{textBlock.value}</Typography>}
+      {textBlock && <Typography component="div" sx={{ color: p.body, opacity: 0.7, fontSize: "clamp(10px, 1.2vw, 13px)", mb: "2.5%", flexShrink: 0 }}><InlineLatexText text={String(textBlock.value)} /></Typography>}
       {tableBlock && (
         <Box sx={{ flex: 1, borderRadius: 2, border: `1px solid ${p.border}`, overflow: "hidden" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
                 {tableBlock.headers?.map((h, j) => (
-                  <th key={j} style={{ padding: "8px 14px", background: j === 0 ? p.border : "#457B9D", color: j === 0 ? p.body : "#fff", textAlign: j === 0 ? "left" : "center", fontSize: 12, fontWeight: 700, borderRight: `1px solid ${p.border}` }}>{h}</th>
+                  <th key={j} style={{ padding: "8px 14px", background: j === 0 ? p.border : "#457B9D", color: j === 0 ? p.body : "#fff", textAlign: j === 0 ? "left" : "center", fontSize: 12, fontWeight: 700, borderRight: `1px solid ${p.border}` }}><InlineLatexText text={String(h)} /></th>
                 ))}
               </tr>
             </thead>
@@ -941,7 +941,7 @@ function ComparisonSlide({ slide, p }) {
               {tableBlock.rows?.map((row, ri) => (
                 <tr key={ri} style={{ background: ri % 2 === 0 ? "transparent" : `${p.border}40` }}>
                   {row.map((cell, ci) => (
-                    <td key={ci} style={{ padding: "7px 14px", color: ci === 0 ? p.title : p.body, fontSize: ci === 0 ? 13 : 12.5, fontWeight: ci === 0 ? 600 : 400, textAlign: ci === 0 ? "left" : "center", borderBottom: `1px solid ${p.border}`, borderRight: `1px solid ${p.border}40` }}>{cell}</td>
+                    <td key={ci} style={{ padding: "7px 14px", color: ci === 0 ? p.title : p.body, fontSize: ci === 0 ? 13 : 12.5, fontWeight: ci === 0 ? 600 : 400, textAlign: ci === 0 ? "left" : "center", borderBottom: `1px solid ${p.border}`, borderRight: `1px solid ${p.border}40` }}><InlineLatexText text={String(cell)} /></td>
                   ))}
                 </tr>
               ))}
@@ -1491,6 +1491,30 @@ export default function LessonViewer() {
 
 
 
+  const [exportingNotes, setExportingNotes] = useState(false);
+
+  const handleExportNotes = async () => {
+
+    setExportingNotes(true);
+
+    try {
+
+      const res = await api.get(`/lessons/${id}/export/notes`, { responseType: "blob", params: { theme } });
+
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+
+      const a = document.createElement("a");
+
+      a.href = url; a.download = `${lesson.title} - Study Notes.pptx`; a.click();
+
+    } catch { /* ignore */ }
+
+    finally { setExportingNotes(false); }
+
+  };
+
+
+
   // Derived display state
 
   const isGenerating = lesson?.status === "generating" && !streamDone;
@@ -1621,11 +1645,23 @@ export default function LessonViewer() {
 
           {(lesson.status === "completed" || streamDone) && (
 
-            <Button variant="contained" startIcon={<DownloadIcon />} onClick={handleExport} disabled={exporting} size="small">
+            <>
 
-              {exporting ? "Exporting..." : "Export PPTX"}
+              <Button variant="outlined" startIcon={<DownloadIcon />} onClick={handleExportNotes} disabled={exportingNotes} size="small"
 
-            </Button>
+                sx={{ borderColor: "text.secondary", color: "text.secondary", "&:hover": { borderColor: "text.primary", color: "text.primary" } }}>
+
+                {exportingNotes ? "Exporting..." : "Share as Notes"}
+
+              </Button>
+
+              <Button variant="contained" startIcon={<DownloadIcon />} onClick={handleExport} disabled={exporting} size="small">
+
+                {exporting ? "Exporting..." : "Export PPTX"}
+
+              </Button>
+
+            </>
 
           )}
 
